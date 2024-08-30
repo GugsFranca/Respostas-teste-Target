@@ -20,13 +20,24 @@ public class FaturamentoDiario {
             double soma = 0;
             int diasContados = 0;
 
+            int diaMenorValor = 0;
+            int  diaMaiorValor = 0;
+
             for (int i = 0; i < faturamentoArray.length(); i++) {
                 JSONObject item = faturamentoArray.getJSONObject(i);
                 double valor = item.getDouble("valor");
+                int dia = item.getInt("dia");
+
 
                 if (valor > 0) {
-                    menorValor = Math.min(menorValor, valor);
-                    maiorValor = Math.max(maiorValor, valor);
+                    if (valor < menorValor) {
+                        menorValor = valor;
+                        diaMenorValor = dia;
+                    }
+                    if (valor > maiorValor) {
+                        maiorValor = valor;
+                        diaMaiorValor = dia;
+                    }
                     soma += valor;
                     diasContados++;
                 }
@@ -42,8 +53,8 @@ public class FaturamentoDiario {
                 }
             }
 
-            System.out.printf("Menor valor de faturamento: R$ %.2f%n", menorValor);
-            System.out.printf("Maior valor de faturamento: R$ %.2f%n", maiorValor);
+            System.out.printf("Menor valor de faturamento: R$ %.2f no dia %d%n", menorValor, diaMenorValor);
+            System.out.printf("Maior valor de faturamento: R$ %.2f no dia %d%n", maiorValor, diaMaiorValor);
             System.out.println("Número de dias com faturamento superior à média: " + diasAcimaMedia);
 
         } catch (Exception e) {

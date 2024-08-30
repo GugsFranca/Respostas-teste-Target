@@ -8,14 +8,14 @@ public class Fibonacci {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Informe um número: ");
+        System.out.print("Informe um número: ");
         int num = scanner.nextInt();
         scanner.close();
 
         if (verificaFib(num)){
-            System.out.println("O numero "+ num + " pertence a sequencia" );
+            System.out.println("O número "+ num + " pertence a sequência" );
         }else{
-            System.out.println("O numero "+ num + " não pertence a sequencia" );
+            System.out.println("O número "+ num + " não pertence a sequência" );
         }
     }
 
