@@ -8,23 +8,23 @@ import java.nio.file.Paths;
 
 public class FaturamentoDiario {
     public static void main(String[] args) {
-        String caminho = "src/main/java/FaturamentoDiario/faturamento.json";
+        String caminho = "src/main/java/FaturamentoDiario/dados.json";
 
         try {
             String caminhoJson = Files.readString(Paths.get(caminho));
-            JSONObject jsonObject = new JSONObject(caminhoJson);
-            JSONArray faturamentoArray = jsonObject.getJSONArray("faturamento");
+            JSONArray jsonArray = new JSONArray(caminhoJson);
 
             double menorValor = Double.MAX_VALUE;
             double maiorValor = Double.MIN_VALUE;
             double soma = 0;
+
             int diasContados = 0;
-
             int diaMenorValor = 0;
-            int  diaMaiorValor = 0;
+            int diaMaiorValor = 0;
 
-            for (int i = 0; i < faturamentoArray.length(); i++) {
-                JSONObject item = faturamentoArray.getJSONObject(i);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject item = jsonArray.getJSONObject(i);
+
                 double valor = item.getDouble("valor");
                 int dia = item.getInt("dia");
 
@@ -46,8 +46,8 @@ public class FaturamentoDiario {
             double media = soma / diasContados;
 
             int diasAcimaMedia = 0;
-            for (int i = 0; i < faturamentoArray.length(); i++) {
-                double valor = faturamentoArray.getJSONObject(i).getDouble("valor");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                double valor = jsonArray.getJSONObject(i).getDouble("valor");
                 if (valor > media) {
                     diasAcimaMedia++;
                 }
@@ -58,7 +58,7 @@ public class FaturamentoDiario {
             System.out.println("Número de dias com faturamento superior à média: " + diasAcimaMedia);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Erro ao processar o arquivo Json: " + e.getMessage());
         }
 
 
